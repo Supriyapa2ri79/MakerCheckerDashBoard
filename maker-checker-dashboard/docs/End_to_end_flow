@@ -1,0 +1,26 @@
+Flow Description
+Maker (User)
+
+Uses the ReactJS frontend to create or edit a product and submit it for approval.
+Views the status and comments of their submissions.
+Checker (User)
+
+Uses the ReactJS frontend to view products pending approval.
+Approves or rejects submissions, adding comments for each decision.
+ReactJS Frontend
+
+Displays role-based dashboards for Maker and Checker.
+Sends/receives data via REST API calls to the backend.
+Spring Boot Backend (App Engine)
+
+Exposes REST endpoints for product management and approval workflows.
+Implements business logic and interacts with the Cloud SQL database.
+Cloud SQL (Database)
+
+Stores product information and approval workflow states.
+Handles queries and updates from the backend.
+End-to-End Flow
+Maker creates/edits product → Frontend sends API request → Backend saves product and approval request in DB.
+Checker views pending approvals → Frontend fetches data → Backend provides pending items from DB.
+Checker approves/rejects → Frontend sends decision → Backend updates DB with status and comments.
+Maker views status and comments → Frontend fetches submission status → Backend returns current approval states from DB.
