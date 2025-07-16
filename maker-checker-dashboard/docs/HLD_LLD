@@ -1,0 +1,117 @@
+# Maker-Checker Dashboard – HLD & LLD
+
+---
+
+## **High-Level Design (HLD)**
+
+### 1. **Architecture Overview**
+
+- **Frontend (ReactJS)**
+  - Role-based UI (Maker, Checker)
+  - Communicates with backend via REST APIs
+  - Displays forms, tables, and status/comments
+
+- **Backend (Spring Boot, Java)**
+  - RESTful API endpoints
+  - Business logic: product submission, approval/rejection workflow
+  - Persistence using JPA/Hibernate
+
+- **Database (Cloud SQL on GCP)**
+  - Tables: `product`, `approval`
+  - Stores product data and approval workflow states
+
+- **Deployment (GCP)**
+  - Backend: App Engine Standard (Java)
+  - Frontend: App Engine (Node.js or static hosting)
+  - Database: Cloud SQL (PostgreSQL or MySQL)
+
+---
+
+### 2. **Module Breakdown**
+
+#### **Frontend**
+- MakerCheckerDashboard.jsx: Core component with role-based logic
+- MakerCheckerDashboard.css: Style
+- App.js, index.js: Entry points
+
+#### **Backend**
+- ProductController.java: Exposes REST endpoints
+- ProductService.java: Business logic
+- ProductRepository.java, ApprovalRepository.java: Data access
+- Domain: Product.java, Approval.java
+- DTOs: ProductSubmission.java, CheckerDecision.java, ProductApprovalView.java
+
+#### **Database**
+- product: Product information
+- approval: Approval workflow, status, comments
+
+#### **GCP**
+- App Engine app.yaml for backend and frontend
+- Cloud SQL connection configuration
+
+---
+
+### 3. **Data Flow**
+
+```mermaid
+sequenceDiagram
+    participant Maker
+    participant Frontend
+    participant Backend
+    participant DB
+    participant Checker
+
+    Maker->>Frontend: Submit product
+    Frontend->>Backend: POST /api/products/submit
+    Backend->>DB: Insert product, insert approval (status: 'Pending')
+    Maker->>Frontend: View submission and status
+    Frontend->>Backend: GET /api/products/maker/{makerId}
+    Backend->>DB: Query products + approval status
+    Backend->>Frontend: Return products/status/comments
+
+    Checker->>Frontend: View pending approvals
+    Frontend->>Backend: GET /api/products/checker/{checkerId}
+    Backend->>DB: Query pending approvals
+    Backend->>Frontend: Return data
+
+    Checker->>Frontend: Approve/Reject with comments
+    Frontend->>Backend: POST /api/products/decide
+    Backend->>DB: Update approval (status/comments)
+    Maker->>Frontend: View updated status/comments
+```
+
+---
+
+## **Low-Level Design (LLD)**
+
+### 1. **Frontend (ReactJS)**
+#### **MakerCheckerDashboard.jsx**
+- Props: `userRole`, `userId`
+- State:
+  - For Maker: `products`, `form`
+  - For Checker: `pendingApprovals`, `comment`
+- Hooks:
+  - `useEffect` fetches data based on role/userId
+  - `handleSubmit` posts product data for approval
+  - `handleDecision` posts approval/rejection
+
+#### **CSS**
+- Responsive layout, tables, forms, buttons
+
+#### **App.js / index.js**
+- Entry points, pass role/user to dashboard
+
+---
+
+### 2. **Backend (Spring Boot, Java)**
+#### **Entities**
+- `Product`: id, product_code, rate_of_intrest
+- `Approval`: id, product_id, maker_id, checker_id, status, comments
+
+#### **DTOs**
+- `ProductSubmission`: product_code, rate_of_intrest, maker_id
+- `CheckerDecision`: approval_id, status, comments, checker_id
+- `ProductApprovalView`: approval_id, product_code, rate_of_intrest, status, comments, maker_id
+
+#### **Repositories**
+- `ProductRepository`:
