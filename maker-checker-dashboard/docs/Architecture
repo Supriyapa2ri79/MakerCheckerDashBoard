@@ -1,0 +1,34 @@
+graph TD
+    A[Maker (User)]
+    B[ReactJS Frontend]
+    C[Spring Boot Backend (App Engine)]
+    D[Cloud SQL (Database)]
+    E[Checker (User)]
+
+    A-->|Submit Product/Edit|B
+    B-->|REST API|C
+    C-->|SQL|D
+
+    E-->|View Pending Approvals|B
+    B-->|REST API|C
+
+    C-->|SQL|D
+
+    A-->|View Submission Status|B
+    B-->|REST API|C
+    C-->|SQL|D
+
+    E-->|Approve/Reject with Comments|B
+    B-->|REST API|C
+    C-->|SQL|D
+
+%% Flow description
+    subgraph User Actions
+      A
+      E
+    end
+    subgraph GCP Cloud
+      B
+      C
+      D
+    end
