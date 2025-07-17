@@ -1,0 +1,24 @@
+# Product Maker-Checker Dashboard
+
+---
+
+### As Maker
+
+#### Submit Product for Approval
+
+| Field                | Input Type         | Example Value         |
+|----------------------|-------------------|----------------------|
+| Product ID           | Text              | 101                  |
+| Product Code         | Text              | SAVING001            |
+| Rate of Interest     | Number (step 0.01)| 5.75                 |
+| Effective From Date  | Date Picker       | 2025-07-01           |
+| Effective To Date    | Date Picker       | 2026-07-01           |
+| Is Active            | Checkbox          | ☑️                   |
+| [Submit for Approval]|
+
+---
+
+#### My Submissions
+
+| Product ID | Product Code | Rate of Interest | Effective From Date | Effective To Date | Is Active | Status    | Checker Comments |
+|------------|--------------|------------------|---------------------|-------------------
