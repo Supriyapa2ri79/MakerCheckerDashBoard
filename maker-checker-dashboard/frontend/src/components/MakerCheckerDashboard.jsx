@@ -5,9 +5,12 @@ export default function MakerCheckerDashboard({ userRole, userId }) {
   const [products, setProducts] = useState([]);
   const [pendingApprovals, setPendingApprovals] = useState([]);
   const [form, setForm] = useState({
+    product_id: '',
     product_code: '',
     rate_of_intrest: '',
-    product_id: null,
+    effective_from_date: '',
+    effective_to_date: '',
+    is_active: false,
   });
   const [comment, setComment] = useState('');
 
@@ -54,6 +57,12 @@ export default function MakerCheckerDashboard({ userRole, userId }) {
           <h2>Submit Product for Approval</h2>
           <form onSubmit={handleSubmit}>
             <input
+              placeholder="Product ID"
+              value={form.product_id}
+              onChange={e => setForm({ ...form, product_id: e.target.value })}
+              required
+            />
+            <input
               placeholder="Product Code"
               value={form.product_code}
               onChange={e => setForm({ ...form, product_code: e.target.value })}
@@ -67,14 +76,40 @@ export default function MakerCheckerDashboard({ userRole, userId }) {
               onChange={e => setForm({ ...form, rate_of_intrest: e.target.value })}
               required
             />
+            <input
+              type="date"
+              placeholder="Effective From Date"
+              value={form.effective_from_date}
+              onChange={e => setForm({ ...form, effective_from_date: e.target.value })}
+              required
+            />
+            <input
+              type="date"
+              placeholder="Effective To Date"
+              value={form.effective_to_date}
+              onChange={e => setForm({ ...form, effective_to_date: e.target.value })}
+              required
+            />
+            <label>
+              <input
+                type="checkbox"
+                checked={form.is_active}
+                onChange={e => setForm({ ...form, is_active: e.target.checked })}
+              />
+              Is Active
+            </label>
             <button type="submit">Submit for Approval</button>
           </form>
           <h3>My Submissions</h3>
           <table>
             <thead>
               <tr>
+                <th>Product ID</th>
                 <th>Product Code</th>
                 <th>Rate of Interest</th>
+                <th>Effective From Date</th>
+                <th>Effective To Date</th>
+                <th>Is Active</th>
                 <th>Status</th>
                 <th>Checker Comments</th>
               </tr>
@@ -82,8 +117,12 @@ export default function MakerCheckerDashboard({ userRole, userId }) {
             <tbody>
               {products.map(p => (
                 <tr key={p.approval_id}>
+                  <td>{p.product_id}</td>
                   <td>{p.product_code}</td>
                   <td>{p.rate_of_intrest}</td>
+                  <td>{p.effective_from_date}</td>
+                  <td>{p.effective_to_date}</td>
+                  <td>{p.is_active ? 'Yes' : 'No'}</td>
                   <td>{p.status}</td>
                   <td>{p.comments}</td>
                 </tr>
@@ -97,8 +136,12 @@ export default function MakerCheckerDashboard({ userRole, userId }) {
           <table>
             <thead>
               <tr>
+                <th>Product ID</th>
                 <th>Product Code</th>
                 <th>Rate of Interest</th>
+                <th>Effective From Date</th>
+                <th>Effective To Date</th>
+                <th>Is Active</th>
                 <th>Maker ID</th>
                 <th>Action</th>
               </tr>
@@ -106,8 +149,12 @@ export default function MakerCheckerDashboard({ userRole, userId }) {
             <tbody>
               {pendingApprovals.map(a => (
                 <tr key={a.approval_id}>
+                  <td>{a.product_id}</td>
                   <td>{a.product_code}</td>
                   <td>{a.rate_of_intrest}</td>
+                  <td>{a.effective_from_date}</td>
+                  <td>{a.effective_to_date}</td>
+                  <td>{a.is_active ? 'Yes' : 'No'}</td>
                   <td>{a.maker_id}</td>
                   <td>
                     <input
