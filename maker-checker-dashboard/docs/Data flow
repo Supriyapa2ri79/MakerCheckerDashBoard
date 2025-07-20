@@ -1,0 +1,12 @@
+1. User Login
+    user enters sso, role
+2. Based on role it should display maker/checker page
+3. Maker page:
+    a. product submission form
+       once submitted data must be saved in product table with eff_to_date null and is active false
+       Same products must be visible on checker page as a table format with checkbox for multiple procts selections for approval/reject with comments
+    b. Maker submission status table
+        Table format which shows maker submissions and its status of approve/reject with comments
+4. Checker Page:
+    a. Table with rows that should list all submissions by maker
+    b. once approved/rejected same should be replicated in maker submssion table
