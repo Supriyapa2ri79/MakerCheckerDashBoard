@@ -4,7 +4,9 @@ CREATE TABLE product (
   rate_of_intrest DECIMAL(5,2)
   effective_from_date DATE,
   effective_to_date DATE,
-  is_active BOOLEAN
+  is_active BOOLEAN,
+  maker_id INTEGER,
+  checker_id INTEGER
 );
 
 CREATE TABLE approval (
