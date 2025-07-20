@@ -1,6 +1,9 @@
 
 package com.makerchecker.controller;
 
+import com.makerchecker.ProductApprovalView;
+import com.makerchecker.ProductSubmission;
+import com.makerchecker.model.CheckerDecision;
 import com.makerchecker.service.ProductService;
 import com.makerchecker.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +18,17 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/submit")
-    public void submitProduct(@RequestBody Product.ProductSubmission submission) {
+    public void submitProduct(@RequestBody ProductSubmission submission) {
         productService.submitProduct(submission);
     }
 
     @GetMapping("/maker/{makerId}")
-    public List<Product.ProductApprovalView> getMakerProducts(@PathVariable Long makerId) {
+    public List<ProductApprovalView> getMakerProducts(@PathVariable Long makerId) {
         return productService.getMakerProducts(makerId);
     }
 
     @GetMapping("/checker/{checkerId}")
-    public List<Product.ProductApprovalView> getCheckerPending(@PathVariable Long checkerId) {
+    public List<ProductApprovalView> getCheckerPending(@PathVariable Long checkerId) {
         return productService.getCheckerPending(checkerId);
     }
 

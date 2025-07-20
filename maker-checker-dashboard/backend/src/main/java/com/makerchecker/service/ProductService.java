@@ -1,6 +1,9 @@
 package com.makerchecker.service;
 
+import com.makerchecker.ProductApprovalView;
+import com.makerchecker.ProductSubmission;
 import com.makerchecker.model.Approval;
+import com.makerchecker.model.CheckerDecision;
 import com.makerchecker.model.Product;
 import com.makerchecker.repository.ApprovalRepository;
 import com.makerchecker.repository.ProductRepository;
@@ -17,12 +20,12 @@ public class ProductService {
     @Autowired
     private ApprovalRepository approvalRepo;
 
-    public void submitProduct(Product.ProductSubmission submission) {
+    public void submitProduct(ProductSubmission submission) {
 
         List<Product> prod = productRepo.findProductById(submission.getProduct_code());
         if(prod != null && prod.count > 0) {
             for (Product product : prod) {
-                if (product.isActive()) {
+                if (product) {
                     product.effective_to_date(LocalDate.now());
                     product.is_active(false);
                     productRepo.save(prod);
@@ -38,19 +41,19 @@ public class ProductService {
         approvalRepo.save(approval);
     }
 
-    public List<Product.ProductApprovalView> getMakerProducts(Long makerId) {
+    public List<ProductApprovalView> getMakerProducts(Long makerId) {
         return approvalRepo.findByMakerIdWithProduct(makerId);
     }
 
-    public List<Product.ProductApprovalView> getCheckerPending(Long checkerId) {
+    public List<ProductApprovalView> getCheckerPending(Long checkerId) {
         return approvalRepo.findPendingApprovals();
     }
 
     public void checkerDecision(CheckerDecision decision) {
-        Approval approval = approvalRepo.findById(decision.getApproval_id()).orElseThrow();
+        Approval approval = approvalRepo.findById(decision.getApprovalId()).orElseThrow();
         approval.setStatus(decision.getStatus());
         approval.setComments(decision.getComments());
-        approval.setChecker_id(decision.getChecker_id());
+        approval.setChecker_id(decision.getCheckerId());
         approvalRepo.save(approval);
     }
 }
