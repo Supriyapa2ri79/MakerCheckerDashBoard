@@ -17,3 +17,9 @@ CREATE TABLE approval (
   status VARCHAR(20),
   comments TEXT
 );
+
+CREATE TABLE user(
+  user_sso,
+  user_name,
+  user_role
+);
