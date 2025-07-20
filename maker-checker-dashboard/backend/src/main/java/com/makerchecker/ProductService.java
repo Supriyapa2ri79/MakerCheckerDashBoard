@@ -27,7 +27,7 @@ public class ProductService {
                 }
             }
         }else{
-            Product prod = new Product(submission.getProduct_code(), submission.getRate_of_intrest()null,null,null);
+            Product prod = new Product(submission.getProduct_code(), submission.getRate_of_intrest(),null,null,null);
             productRepo.save(prod);
         }
         Approval approval = new Approval(prod.getId(), submission.getMaker_id(), null, "Pending", null);
