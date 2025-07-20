@@ -1,4 +1,4 @@
-package com.example.makerchecker;
+package com.makerchecker.model;
 
 public class CheckerDecision {
     private Long approval_id;

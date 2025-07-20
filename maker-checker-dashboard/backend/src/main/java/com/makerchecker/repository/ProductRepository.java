@@ -1,4 +1,5 @@
-package com.example.makerchecker;
+package com.makerchecker.repository;
+import com.makerchecker.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {

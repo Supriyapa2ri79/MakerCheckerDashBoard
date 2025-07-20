@@ -1,4 +1,4 @@
-package com.example.makerchecker;
+package com.makerchecker.model;
 import javax.persistence.*;
 
 @Entity

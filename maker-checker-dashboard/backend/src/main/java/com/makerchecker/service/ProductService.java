@@ -1,5 +1,9 @@
-package com.example.makerchecker;
+package com.makerchecker.service;
 
+import com.makerchecker.model.Approval;
+import com.makerchecker.model.Product;
+import com.makerchecker.repository.ApprovalRepository;
+import com.makerchecker.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -13,7 +17,7 @@ public class ProductService {
     @Autowired
     private ApprovalRepository approvalRepo;
 
-    public void submitProduct(ProductSubmission submission) {
+    public void submitProduct(Product.ProductSubmission submission) {
 
         List<Product> prod = productRepo.findProductById(submission.getProduct_code());
         if(prod != null && prod.count > 0) {
@@ -34,11 +38,11 @@ public class ProductService {
         approvalRepo.save(approval);
     }
 
-    public List<ProductApprovalView> getMakerProducts(Long makerId) {
+    public List<Product.ProductApprovalView> getMakerProducts(Long makerId) {
         return approvalRepo.findByMakerIdWithProduct(makerId);
     }
 
-    public List<ProductApprovalView> getCheckerPending(Long checkerId) {
+    public List<Product.ProductApprovalView> getCheckerPending(Long checkerId) {
         return approvalRepo.findPendingApprovals();
     }
 
