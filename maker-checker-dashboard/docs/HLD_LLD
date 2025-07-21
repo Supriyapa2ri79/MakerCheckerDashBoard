@@ -65,12 +65,12 @@ sequenceDiagram
     Frontend->>Backend: POST /api/products/submit
     Backend->>DB: Insert product, insert approval (status: 'Pending')
     Maker->>Frontend: View submission and status
-    Frontend->>Backend: GET /api/products/maker/{makerId}
+    Frontend->>Backend: GET /api/products/maker/{userrole_userId}
     Backend->>DB: Query products + approval status
     Backend->>Frontend: Return products/status/comments
 
     Checker->>Frontend: View pending approvals
-    Frontend->>Backend: GET /api/products/checker/{checkerId}
+    Frontend->>Backend: GET /api/products/checker/{userrole_userId}
     Backend->>DB: Query pending approvals
     Backend->>Frontend: Return data
 
