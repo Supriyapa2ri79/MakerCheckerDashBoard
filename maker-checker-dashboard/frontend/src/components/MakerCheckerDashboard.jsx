@@ -16,11 +16,11 @@ export default function MakerCheckerDashboard({ userRole, userId }) {
 
   useEffect(() => {
     if (userRole === 'maker') {
-      fetch(`/api/products/maker/${userId}`)
+      fetch(`/api/products/maker/${userrole_userId}}`)
         .then(res => res.json())
         .then(setProducts);
     } else if (userRole === 'checker') {
-      fetch(`/api/products/checker/${userId}`)
+      fetch(`/api/products/checker/${userrole_userId}}`)
         .then(res => res.json())
         .then(setPendingApprovals);
     }
