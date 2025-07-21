@@ -17,28 +17,32 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepo;
+
     @Autowired
     private ApprovalRepository approvalRepo;
 
-    public void submitProduct(ProductSubmission submission) {
+    public ProductService(ProductRepository productRepo, ApprovalRepository approvalRepo) {
+        this.productRepo = productRepo;
+        this.approvalRepo = approvalRepo;
+    }
 
-        List<Product> prod = productRepo.findProductById(submission.getProduct_code());
-        if(prod != null && prod.count > 0) {
-            for (Product product : prod) {
-                if (product) {
-                    product.effective_to_date(LocalDate.now());
-                    product.is_active(false);
-                    productRepo.save(prod);
-                    Product prod = new Product(submission.getProduct_code(), submission.getRate_of_intrest(),null,null,true);
-                    productRepo.save(prod);
-                }
-            }
-        }else{
-            Product prod = new Product(submission.getProduct_code(), submission.getRate_of_intrest(),null,null,null);
-            productRepo.save(prod);
-        }
-        Approval approval = new Approval(prod.getId(), submission.getMaker_id(), null, "Pending", null);
+    public void submitProduct(ProductSubmission submission) {
+    //need to save data in product and approval table
+        Product product = new Product();
+        product.setProductCode(submission.getProduct_code());
+        product.setRateOfIntrest(submission.getRate_of_intrest());
+        product.setEffectiveFromDate(submission.getEffectiveFromDate());
+        product.setEffectiveToDate(submission.getEffectiveToDate());
+        product.setIsActive(submission.getIsActive());
+        productRepo.save(product);
+
+        Approval approval = new Approval();
+        approval.setProduct_id(product.getId());
+        approval.setUser_id(submission.getUser_id());
+        approval.setUser_role(submission.getUser_role());
+        approval.setStatus("PENDING");
         approvalRepo.save(approval);
+
     }
 
     public List<ProductApprovalView> getMakerProducts(Long makerId) {
@@ -53,7 +57,7 @@ public class ProductService {
         Approval approval = approvalRepo.findById(decision.getApprovalId()).orElseThrow();
         approval.setStatus(decision.getStatus());
         approval.setComments(decision.getComments());
-        approval.setChecker_id(decision.getCheckerId());
+        // approval.setChecker_id(decision.getCheckerId());
         approvalRepo.save(approval);
     }
 }

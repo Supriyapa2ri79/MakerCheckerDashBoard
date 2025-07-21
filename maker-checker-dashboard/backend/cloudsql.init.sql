@@ -10,7 +10,7 @@ CREATE TABLE product (
 CREATE TABLE approval (
   id SERIAL PRIMARY KEY,
   product_id INTEGER REFERENCES product(id),
-  maker_id INTEGER,
+  user_id INTEGER,
   checker_id INTEGER,
   status VARCHAR(20),
   comments TEXT

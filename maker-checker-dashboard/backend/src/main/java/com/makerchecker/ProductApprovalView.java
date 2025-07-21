@@ -7,6 +7,7 @@ public class ProductApprovalView {
     private String status;
     private String comments;
     private Long maker_id;
+    private effective_Date;
 
     public ProductApprovalView(Long approval_id, String product_code, Double rate_of_intrest, String status, String comments, Long maker_id) {
         this.approval_id = approval_id;

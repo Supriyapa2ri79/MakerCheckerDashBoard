@@ -10,8 +10,8 @@ public class Approval {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long product_id;
-    private Long maker_id;
-    private Long checker_id;
+    private Long user_id;
+    private String user_role;
     private String status;
     private String comments;
 
@@ -19,12 +19,12 @@ public class Approval {
     public Approval() {}
 
     // Parameterized constructor for easier instantiation
-    public Approval(Long product_id, Long maker_id, Long checker_id, String status, String comments) {
+    public Approval(Long product_id, Long user_id,String user_role, String status, String comments) {
         this.product_id = product_id;
-        this.maker_id = maker_id;
-        this.checker_id = checker_id;
+        this.user_id = user_id;
         this.status = status;
         this.comments = comments;
+        this.user_role = user_role;
     }
 
     // 🛠 Getters and Setters
@@ -44,20 +44,12 @@ public class Approval {
         this.product_id = product_id;
     }
 
-    public Long getMaker_id() {
-        return maker_id;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setMaker_id(Long maker_id) {
-        this.maker_id = maker_id;
-    }
-
-    public Long getChecker_id() {
-        return checker_id;
-    }
-
-    public void setChecker_id(Long checker_id) {
-        this.checker_id = checker_id;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
     public String getStatus() {
@@ -74,5 +66,12 @@ public class Approval {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getUser_role() {
+        return user_role;
+    }
+    public void setUser_role(String user_role) {
+        this.user_role = user_role;
     }
 }
