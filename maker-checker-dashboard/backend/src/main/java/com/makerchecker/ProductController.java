@@ -17,12 +17,12 @@ public class ProductController {
         productService.submitProduct(submission);
     }
 
-    @GetMapping("/maker/{makerId}")
+    @GetMapping("/maker/{userrole_userId}}")
     public List<ProductApprovalView> getMakerProducts(@PathVariable Long makerId) {
         return productService.getMakerProducts(makerId);
     }
 
-    @GetMapping("/checker/{checkerId}")
+    @GetMapping("/checker/{userrole_userId}}")
     public List<ProductApprovalView> getCheckerPending(@PathVariable Long checkerId) {
         return productService.getCheckerPending(checkerId);
     }
